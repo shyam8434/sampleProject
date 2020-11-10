@@ -1,0 +1,23 @@
+.homeMainContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    font-family: sans-serif;
+    background-color: #6683a0;
+}
+.homeContainer1 {
+    color: #043c74;
+    text-align: center;
+}
+.cardStyle {
+    padding: 15px;
+}
+
+.tableContainer {
+    min-width: 300px;
+    max-width: 700px;
+    width: 70%
+}
