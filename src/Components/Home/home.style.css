@@ -21,3 +21,9 @@
     max-width: 700px;
     width: 70%
 }
+.tableHeader {
+    background-color: #043c74;
+    color: white;
+    padding: 10px;
+    border-radius: 10px 10px 0px 0px;
+}
