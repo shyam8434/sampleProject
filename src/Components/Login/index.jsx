@@ -6,6 +6,7 @@ import TextField from "../Shared/TextField";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setHomeData } from "../../AppConfig/store/actions";
+import users from "./userData";
 
 /**
  * Used to login into the application as Amin, Manager and Developer.
@@ -17,12 +18,24 @@ import { setHomeData } from "../../AppConfig/store/actions";
 const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const credentials = {
+    username: "hruday@gmail.com",
+    password: "hruday123",
+  };
 
   const [values, setValues] = useState({
     userName: "",
     password: "",
     showPassword: false,
   });
+  const [userErrorState, setUserErrorState] = useState({
+    userError: false,
+    errorMessage: "Enter valid user Name",
+  })
+  const [passwordErrorState, setPasswordErrorState] = useState({
+    passwordError: false,
+    errorMessage: "Enter valid Password",
+  })
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -38,12 +51,35 @@ const Login = () => {
 
   const handleOnSignIn = () => {
     //@to-do validate form field
-    dispatch(setHomeData([]))
-    localStorage.setItem('user_details', JSON.stringify({
-      name: 'shyam',
-      id: 1324
-    }))
-    history.push('/')
+    if(values.userName !== credentials.username){
+      setUserErrorState({userError: true, errorMessage: "User Name is incorrect"})
+    }
+    if(values.password !== credentials.password){
+      setPasswordErrorState({passwordError: true, errorMessage: "Password is incorrect"})
+    }
+    if(!values.userName) {
+      setUserErrorState({userError: true, errorMessage: "Enter User Name"})
+    }
+    if(!values.password) {
+      setPasswordErrorState ({passwordError: true, errorMessage: "Enter Password"})
+    }
+
+    if (
+      values.userName === credentials.username &&
+      values.password === credentials.password
+    ) {
+      setUserErrorState({...userErrorState, userError: false});
+      setPasswordErrorState({...passwordErrorState, passwordError: false})
+      dispatch(setHomeData(users));
+      localStorage.setItem(
+        "user_details",
+        JSON.stringify({
+          name: credentials.username,
+          id: 1324,
+        })
+      );
+      history.push("/");
+    } 
   };
 
   return (
@@ -58,12 +94,17 @@ const Login = () => {
               label="User Name"
               value={values.userName}
               onChange={handleChange("userName")}
+              error={userErrorState.userError}
+              errorMessage={userErrorState.errorMessage}
+            
             />
             <TextField
               label="Password"
               value={values.password}
               onChange={handleChange("password")}
+              error={passwordErrorState.passwordError}
               type={values.showPassword ? "text" : "password"}
+              errorMessage={passwordErrorState.errorMessage}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton

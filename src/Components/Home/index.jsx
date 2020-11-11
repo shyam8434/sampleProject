@@ -12,6 +12,7 @@ import "./home.style.css";
 
 const Home = () => {
   const data = useSelector(state => state.appCommon.data)
+  const userData = JSON.parse(localStorage.user_details)
 
   return (
       <div className="homeMainContainer">
@@ -20,7 +21,7 @@ const Home = () => {
           <section>
             <span>{`Hi `}</span>
             <span>
-              <b>Shyam</b>
+              <b>{userData.name}</b>
             </span>
           </section>
         </div>
@@ -30,8 +31,9 @@ const Home = () => {
             columns={[
               { label: 'Name', dataField: 'name'},
               { label: 'Age', dataField: 'age'},
-              { label: 'Class', dataField: 'class'},
-              { label: 'School', dataField: 'school'},
+              { label: 'Gender', dataField: 'gender'},
+              { label: 'Email', dataField: 'email'},
+              { label: 'Phone Number', dataField: 'phoneNo'},
             ]}
           />
         </div>

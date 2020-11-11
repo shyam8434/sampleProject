@@ -1,5 +1,10 @@
 import React from "react";
-import { FormControl, InputLabel, OutlinedInput } from "@material-ui/core";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  OutlinedInput,
+} from "@material-ui/core";
 
 /**
  * Used to show a Text Input and used to take input from the user as a string.
@@ -29,6 +34,11 @@ const TextField = ({ label, value, onChange, margin, ...rest }) => {
         label={label}
         {...rest}
       />
+      {rest.error && (
+        <FormHelperText error={true} variant="standard">
+          {rest.errorMessage}
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };
